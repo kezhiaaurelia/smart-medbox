@@ -144,10 +144,8 @@
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
                         data-bs-toggle="dropdown">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
-                            style="width:38px;height:38px;">
-                            {{ substr(Auth::user()->name, 0, 1) }}
-                        </div>
+                        <img src="{{ Auth::user()->foto_profil_url }}" class="rounded-circle me-2" width="38"
+                            height="38" style="object-fit: cover;">
                         <span class="text-dark fw-semibold">{{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">

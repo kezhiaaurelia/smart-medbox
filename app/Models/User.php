@@ -22,6 +22,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'foto_profil',
+        'no_hp',
+        'tanggal_lahir',
+        'jenis_kelamin',
+        'golongan_darah',
+        'riwayat_alergi',
+        'kontak_darurat_nama',
+        'kontak_darurat_hubungan',
+        'kontak_darurat_hp',
     ];
 
     /**
@@ -44,6 +53,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'tanggal_lahir' => 'date',
         ];
+    }
+
+    public function getFotoProfilUrlAttribute(): string
+    {
+        if ($this->foto_profil) {
+            return asset('storage/' . $this->foto_profil);
+        }
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=0d6efd&color=fff';
     }
 }

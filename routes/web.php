@@ -1,8 +1,8 @@
 <?php
 
-// use App\Models\Pasien;
 use App\Models\Obat;
-// use App\Models\JadwalMinumObat;
+use App\Models\Pasien;
+use App\Models\JadwalMinumObat;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PasienController;
@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-use App\Models\Pasien;
-
-use App\Models\JadwalMinumObat;
 
 Route::get('/dashboard', function () {
     $totalPasien = Pasien::where('user_id', auth()->id())->count();
