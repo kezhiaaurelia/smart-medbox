@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Obat;
 use App\Models\Pasien;
 use App\Models\JadwalMinumObat;
@@ -16,11 +17,58 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $totalPasien = Pasien::where('user_id', auth()->id())->count();
-    $totalObat = Obat::where('user_id', auth()->id())->count();
-    $totalJadwal = JadwalMinumObat::where('user_id', auth()->id())->where('aktif', true)->count();
 
-    return view('dashboard', compact('totalPasien', 'totalObat', 'totalJadwal'));
+    $userId = auth()->id();
+
+    $totalPasien = Pasien::where('user_id', $userId)->count();
+
+    $totalObat = Obat::where('user_id', $userId)->count();
+
+    $totalJadwalAktif = JadwalMinumObat::where('user_id', $userId)
+        ->where('aktif', true)
+        ->count();
+
+    // sementara
+    $persentaseKepatuhan = 0;
+    $alarmTerlewatHariIni = 0;
+
+    $jadwalHariIni = collect();
+
+    $jadwal = JadwalMinumObat::with(['obat', 'jamMinums'])
+        ->where('user_id', $userId)
+        ->where('aktif', true)
+        ->get();
+
+    foreach ($jadwal as $item) {
+
+        if (!$item->jatuhTempoPada(today())) {
+            continue;
+        }
+
+        foreach ($item->jamMinums as $jam) {
+
+            $jadwalHariIni->push([
+                'obat' => $item->obat->nama,
+                'jam' => Carbon::parse($jam->jam),
+                'keterangan' => $item->keterangan,
+            ]);
+        }
+    }
+
+    $jamHariIni = $jadwalHariIni->sortBy('jam')->values();
+
+    $jadwalBerikutnya = $jamHariIni
+        ->first(fn($j) => $j['jam']->greaterThan(now()));
+
+    return view('dashboard', compact(
+        'totalPasien',
+        'totalObat',
+        'totalJadwalAktif',
+        'persentaseKepatuhan',
+        'alarmTerlewatHariIni',
+        'jadwalBerikutnya',
+        'jamHariIni'
+    ));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

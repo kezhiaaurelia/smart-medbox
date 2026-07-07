@@ -95,10 +95,11 @@
                     <li class="nav-item"><a class="nav-link" href="#how-it-works">Cara Kerja</a></li>
                     <li class="nav-item"><a class="nav-link" href="#stats">Statistik</a></li>
 <li class="nav-item">
-    <a class="nav-link btn btn-primary text-white px-4 ms-3" href="{{ route('login') }}">
+    <a class="nav-link btn text-white px-4 ms-3" href="{{ route('login') }}" style="background-color: #0d6efd;">
         Login
     </a>
-</li>                </ul>
+</li>               
+</ul>
             </div>
         </div>
     </nav>
@@ -127,16 +128,15 @@
                     <ul class="list-unstyled text-white-50">
                         <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">Beranda</a></li>
                         <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">Fitur</a></li>
-                        <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">Harga</a></li>
                         <li class="mb-2"><a href="#" class="text-decoration-none text-white-50">Kontak</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
                     <h6 class="fw-bold text-white mb-3">Kontak</h6>
                     <ul class="list-unstyled text-white-50">
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Jl. Kesehatan No. 123, Jakarta
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Jl. Kesehatan No. 123, Cirebon
                         </li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (021) 1234-5678</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (081) 1152-329</li>
                         <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@smartmedbox.id</li>
                     </ul>
                 </div>
